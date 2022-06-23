@@ -277,7 +277,7 @@ MonoBehaviour:
     m_Bits: 64
   axeHeadRange: 0.36
   axeBoolHeadRange: 0.4
-  axeGroundRange: 0.21
+  axeGroundRange: 0.45
   axePlayerRange: 0.54
   axeTestRange: 0.4
   rbAxe: {fileID: 6361770084160195023}

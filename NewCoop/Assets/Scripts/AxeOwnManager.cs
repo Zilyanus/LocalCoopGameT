@@ -37,7 +37,6 @@ public class AxeOwnManager : MonoBehaviour
     private bool _IsTouchToPlayer;
     private bool _Test;
     private float AxeForceCounter;
-    
 
     [Space(10)]
     [Header("-----Axe Physics-----")]
@@ -116,9 +115,11 @@ public class AxeOwnManager : MonoBehaviour
     {
         Collider2D collider = Physics2D.OverlapCircle(transform.position, axeTestRange, _maskForTest);
 
-        if (collider != _WhichPlayer) return;
-        _Test = Physics2D.OverlapCircle(transform.position, axeTestRange, _maskForTest);
-        if (_Test) this.GetComponent<BoxCollider2D>().isTrigger = true;
+        if (collider == _WhichPlayer)
+        {
+            _Test = Physics2D.OverlapCircle(transform.position, axeTestRange, _maskForTest);
+            if (_Test) this.GetComponent<BoxCollider2D>().isTrigger = true;
+        }
         else this.GetComponent<BoxCollider2D>().isTrigger = false;
     }
     #endregion
@@ -160,33 +161,23 @@ public class AxeOwnManager : MonoBehaviour
     private void GetTakeBackTheAxe()
     {
         if (!_IsTouchingToGround) return;
-        if (_ThisPlayer == null) return;
-        else
-        {
-            CombatManager playerComponent = _ThisPlayer.GetComponent<CombatManager>();
-            if (playerComponent.AxeCount < 2)
-            {
-                playerComponent.HasAxe = true;
-                playerComponent.AxeCount++;
-                Destroy(gameObject);
-            }
-        }
+        else if (_ThisPlayer == null) return;
 
+        CombatManager playerComponent = _ThisPlayer.GetComponent<CombatManager>();
+        if (playerComponent.AxeCount < 2)
+        {
+            playerComponent.HasAxe = true;
+            playerComponent.AxeCount++;
+            Destroy(gameObject);
+        }
     }
     #endregion
 
     #region Axe Physics
     private void AxePhysics()
     {
-        if (_IsTouchingToGround)
-        {
-            AxeOnGround();
-            
-        }
-        else
-        {
-            AxeOnFlying();
-        }
+        if (_IsTouchingToGround) AxeOnGround();
+        else AxeOnFlying();
     }
     #endregion
 

@@ -1,0 +1,4 @@
+baltayı yerden alırken kafa ilede alınabilecek hale getirilecek
+zıplama bugı fixlenecek
+baltanın colliderı sert çarpışma türünde olacak
+baltaya ağırlık eklenecek
