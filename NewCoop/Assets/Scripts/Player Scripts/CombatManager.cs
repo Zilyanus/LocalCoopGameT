@@ -18,6 +18,7 @@ public class CombatManager : MonoBehaviour
     [BackgroundColor(0, 1, 0, 1)] [SerializeField] Transform MeleeCombatArea;
     [BackgroundColor(0, 1, 0, 1)] [SerializeField] LayerMask MeeleCombatLayerMask;
     [BackgroundColor(0, 1, 0, 1)] [SerializeField] Collider2D HeadCollider;
+    [BackgroundColor(0, 1, 0, 1)] [SerializeField] Collider2D PlayerCollider;
 
     [Space(10)]
     [Header("-----Statues-----")]
@@ -140,6 +141,7 @@ public class CombatManager : MonoBehaviour
         myAxe = Instantiate(AxePrefab, transform.position, Quaternion.identity);
         myAxe.GetComponent<AxeOwnManager>().Inputs = Inputs;
         myAxe.GetComponent<AxeOwnManager>()._WhichHead = HeadCollider;
+        myAxe.GetComponent<AxeOwnManager>()._WhichPlayer = PlayerCollider;
         Rigidbody2D AxeRb = myAxe.GetComponent<Rigidbody2D>();
         myAxe.GetComponent<Transform>().Rotate(0, 0, Axedirection);
     }
