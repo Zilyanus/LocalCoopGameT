@@ -11,12 +11,10 @@ public class MovementManager : Librariy
     [BackgroundColor(1f, 0f, 0f, 1f)] [Range(-50f, 50f)] [SerializeField] float minFallGravity;
     [BackgroundColor(1f, 0f, 0f, 1f)] [Range(0.005f, 100f)] public float ClampGravityMin;
     [BackgroundColor(1f, 0f, 0f, 1f)] [Range(0.005f, 100f)] public float ClampGravityMax;
-    public bool IsCanMove = true;
-    [SerializeField] Transform _graph;
+    [BackgroundColor(1f, 0f, 0f, 1f)] public bool IsCanMove = true;
+    [BackgroundColor(1f, 0f, 0f, 1f)] [SerializeField] Transform _graph;
 
-    [Space(10)]
-    [Header("-----Move Options Without axe-----")]
-    [Space(30)]
+
     [BackgroundColor(0f, 1f, 0f, 1f)] [Range(1f,100f)] public float MainSpeed;
     [BackgroundColor(0f, 1f, 0f, 1f)] [Range(1f, 50f)] public float acceleration;
     [BackgroundColor(0f, 1f, 0f, 1f)] [Range(1f, 50f)] public float decceleration;
@@ -160,10 +158,8 @@ public class MovementManager : Librariy
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _Accelerration : _Deacceleration;
         //Calculeting movement value
         float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
-        //Moving
-        rb.velocity = new Vector2(moveInput * _MainSpeed, rb.velocity.y);
         //Moving with forces
-        rb.AddForce(moveInput * Vector2.right);
+        rb.AddForce(movement * Vector2.right);
         DirectionOfPlayer();
     }
     #endregion
