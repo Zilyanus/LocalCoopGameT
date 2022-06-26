@@ -233,7 +233,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0023777485, y: 0.015985906}
+  m_Offset: {x: -0.0050949454, y: 0.017835632}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -244,7 +244,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.103447, y: 0.7574451}
+  m_Size: {x: 0.97845006, y: 0.75374544}
   m_EdgeRadius: 0
 --- !u!114 &6366568690366443917
 MonoBehaviour:
@@ -258,8 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eca62324c5415c4a9efa5f19c669cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionForce: 35
-  directionForceCuter: 50
+  directionForce: 9.5
+  directionForceCuter: 5
   AxeForce: 15
   AxeForceCuter: 5
   AxeGravityCounter: 0.4
@@ -275,11 +275,11 @@ MonoBehaviour:
   _maskForTest:
     serializedVersion: 2
     m_Bits: 64
-  axeHeadRange: 0.36
+  axeHeadRange: 0.41
   axeBoolHeadRange: 0.4
-  axeGroundRange: 0.45
-  axePlayerRange: 0.54
-  axeTestRange: 0.4
+  axeGroundRange: 0.25
+  axePlayerRange: 0.45
+  axeTestRange: 0.6
   rbAxe: {fileID: 6361770084160195023}
   Inputs: {fileID: 0}
   _WhichHead: {fileID: 0}
