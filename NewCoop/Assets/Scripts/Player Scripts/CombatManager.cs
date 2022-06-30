@@ -138,7 +138,7 @@ public class CombatManager : MonoBehaviour
     #region Throw Axe Settings
     private void CreateAe()
     {
-        myAxe = Instantiate(AxePrefab, transform.position, Quaternion.identity);
+        myAxe = Instantiate(AxePrefab, AxeSpawner.position, Quaternion.identity);
         myAxe.GetComponent<AxeOwnManager>().Inputs = Inputs;
         myAxe.GetComponent<AxeOwnManager>()._WhichHead = HeadCollider;
         myAxe.GetComponent<AxeOwnManager>()._WhichPlayer = PlayerCollider;

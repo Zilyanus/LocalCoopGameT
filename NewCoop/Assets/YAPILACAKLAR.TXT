@@ -1,4 +1,6 @@
-baltayı yerden alırken kafa ilede alınabilecek hale getirilecek
-zıplama bugı fixlenecek
-baltanın colliderı sert çarpışma türünde olacak
-baltaya ağırlık eklenecek
+baltaya 1 collider daha eklenecek. Eğer grounded olursa bu collider aktif olacak. Eklenecek Colliderin Physic2D sekmesinden player ve head ile bağlantısı kesilecek.
+
+Bu Collider groundun içine girmeyi engelliyecek. pasifken sadece Physics2D oveerlap sekmentleri çalışacak. aktifken eğer optimize ise fizik segmentlerini etkileyebilir.
+
+Kafanın Collideri Circle2D kalacak. Ustten dokuşunu algılamak için yeni bir collider eklenecek. Eklenecek yeni colliderin physics2D'den zeminle etkileşimi kapatılacak.
+

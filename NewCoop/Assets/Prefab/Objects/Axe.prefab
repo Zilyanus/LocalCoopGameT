@@ -258,10 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eca62324c5415c4a9efa5f19c669cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionForce: 9.5
+  directionForce: 21
   directionForceCuter: 5
-  AxeForce: 15
-  AxeForceCuter: 5
+  AxeForce: 0.6
+  AxeForceCuter: 1
   AxeGravityCounter: 0.4
   _maskForGround:
     serializedVersion: 2
@@ -277,10 +277,14 @@ MonoBehaviour:
     m_Bits: 64
   axeHeadRange: 0.41
   axeBoolHeadRange: 0.4
-  axeGroundRange: 0.25
+  axeGroundRange: 0.3
   axePlayerRange: 0.45
   axeTestRange: 0.6
   rbAxe: {fileID: 6361770084160195023}
   Inputs: {fileID: 0}
   _WhichHead: {fileID: 0}
   _WhichPlayer: {fileID: 0}
+  forGround: 0
+  forPlayer: 0
+  forTest: 0
+  forHead: 0

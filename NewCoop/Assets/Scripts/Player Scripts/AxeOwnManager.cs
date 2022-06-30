@@ -13,10 +13,10 @@ public class AxeOwnManager : MonoBehaviour
     [Space(10)]
     [Header("-----Axe Direction Settings-----")]
     [Space(20)]
-    [BackgroundColor(1, 0, 0, 1)] [Range(1, 300)] [SerializeField] float directionForce;
-    [BackgroundColor(1, 0, 0, 1)] [Range(1, 100)] [SerializeField] float directionForceCuter;
-    [BackgroundColor(1, 0, 0, 1)] [Range(1, 300)] [SerializeField] float AxeForce;
-    [BackgroundColor(1, 0, 0, 1)] [Range(1, 100)] [SerializeField] float AxeForceCuter;
+    [BackgroundColor(1, 0, 0, 1)] [Range(0.005f, 100)] [SerializeField] float directionForce;
+    [BackgroundColor(1, 0, 0, 1)] [Range(0.005f, 100)] [SerializeField] float directionForceCuter;
+    [BackgroundColor(1, 0, 0, 1)] [Range(0.005f, 100)] [SerializeField] float AxeForce;
+    [BackgroundColor(1, 0, 0, 1)] [Range(0.005f, 100)] [SerializeField] float AxeForceCuter;
     [BackgroundColor(1, 0, 0, 1)] [Range(0.005f, 10)] [SerializeField] float AxeGravityCounter;
 
 
@@ -54,10 +54,17 @@ public class AxeOwnManager : MonoBehaviour
     private Collider2D _ThisPlayer;
 
 
+
+    [Header("-----Debug-----")]
+    [SerializeField] bool forGround;
+    [SerializeField] bool forPlayer;
+    [SerializeField] bool forTest;
+    [SerializeField] bool forHead;
+
     private void Start()
     {
         AxeForceCounter = AxeForce - 50;
-        rbAxe.velocity = new Vector2(Mathf.Clamp(rbAxe.velocity.x, -20, 20), Mathf.Clamp(rbAxe.velocity.y, -20, 20));
+        
         rbAxe.gravityScale = 0;
     }
 
@@ -69,12 +76,12 @@ public class AxeOwnManager : MonoBehaviour
         {
             if (Inputs.r < 0)
             {
-                transform.Rotate(new Vector3(0, 0, -Inputs.r * directionForce));
+                transform.Rotate(new Vector3(0, 0, -Inputs.r * directionForce) * Time.deltaTime * 10);
                 Debug.Log("RL yönünde force var");
             }
             if (Inputs.r > 0)
             {
-                transform.Rotate(new Vector3(0, 0, -Inputs.r * directionForce));
+                transform.Rotate(new Vector3(0, 0, -Inputs.r * directionForce) * Time.deltaTime * 10);
                 Debug.Log("RR yönünde force var");
             }
         }
@@ -84,15 +91,27 @@ public class AxeOwnManager : MonoBehaviour
     #region Draw Gizmos
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, axePlayerRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, axeBoolHeadRange);
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(transform.position, axeHeadRange);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, axeGroundRange);
-
+        
+        if (forPlayer)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(transform.position, axePlayerRange);
+        }
+        if (forHead)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, axeBoolHeadRange);
+        }
+        if (forHead)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(transform.position, axeHeadRange);
+        }
+        if (forGround)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position, axeGroundRange);
+        }
     }
     #endregion
 
@@ -101,30 +120,16 @@ public class AxeOwnManager : MonoBehaviour
     {
         AxePhysics();
         GetTakeBackTheAxe();
+        rbAxe.velocity = new Vector2(Mathf.Clamp(rbAxe.velocity.x, -20, 20), Mathf.Clamp(rbAxe.velocity.y, -20, 20));
     }
 
     private void FixedUpdate()
     {
         GroundDedection();
-        AddForceToAxe();
         HeadDedection();
         PlayerDedection();
-        //testFunc();
     }
 
-    //#region Test For boxColilder 
-    //private void testFunc()
-    //{
-    //    Collider2D collider = Physics2D.OverlapCircle(transform.position, axeTestRange, _maskForTest);
-
-    //    if (collider == _WhichPlayer)
-    //    {
-    //        _Test = Physics2D.OverlapCircle(transform.position, axeTestRange, _maskForTest);
-    //        if (_Test) this.GetComponent<BoxCollider2D>().isTrigger = true;
-    //    }
-    //    else this.GetComponent<BoxCollider2D>().isTrigger = false;
-    //}
-    //#endregion
 
     #region Head Dedection
     private void HeadDedection()
@@ -186,10 +191,11 @@ public class AxeOwnManager : MonoBehaviour
     #region Axe On Fly
     private void AxeOnFlying()
     {
-        rbAxe.velocity += new Vector2(transform.up.x, transform.up.y) * Time.fixedDeltaTime * AxeForce;
-        if (AxeForce >= 0 && !_IsTouchingToGround) AxeForce -= Time.deltaTime * AxeForceCuter;
+        AddForceToAxe();
+        rbAxe.velocity += new Vector2(transform.up.x, transform.up.y) * Time.deltaTime * AxeForce * 10;
         this.Wait(AxeGravityCounter, () => rbAxe.gravityScale = 0.7f);
-        if (directionForce >= 0 && !_IsTouchingToGround) directionForce -= Time.deltaTime * directionForceCuter;
+        directionForce = (directionForce >= 0 && !_IsTouchingToGround) ? directionForce - Time.deltaTime * directionForceCuter : directionForce;
+        AxeForce = (AxeForce >= 0 && !_IsTouchingToGround) ? AxeForce - Time.deltaTime * AxeForceCounter : AxeForce;
         if (_IsTouchToHead) Destroy(gameObject);
     }
     #endregion
